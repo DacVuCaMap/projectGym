@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="600.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aptech.project2.Controller.PaymentController">
+   <children>
+      <AnchorPane layoutX="4.0" layoutY="4.0" prefHeight="582.0" prefWidth="534.0" stylesheets="@../../../../static/css/MenuStyleSheet.css" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="296.0" AnchorPane.topAnchor="4.0">
+         <styleClass>
+            <String fx:value="radius" />
+            <String fx:value="shadow" />
+            <String fx:value="white-bg" />
+            <String fx:value="white-bg" />
+         </styleClass>
+         <children>
+            <TableView layoutX="4.0" layoutY="46.0" prefHeight="526.0" prefWidth="522.0" AnchorPane.bottomAnchor="9.600000000000023" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.600000000000023" AnchorPane.topAnchor="46.0">
+              <columns>
+                <TableColumn fx:id="columId" prefWidth="88.00000381469727" text="Customer ID" />
+                <TableColumn fx:id="columName" prefWidth="110.39999389648438" text="Name" />
+                  <TableColumn fx:id="columStartDate" prefWidth="110.39999389648438" text="StartDate" />
+                  <TableColumn fx:id="columEndDate" prefWidth="110.39999389648438" text="EndDate" />
+                  <TableColumn fx:id="columStatus" prefWidth="110.39999389648438" text="Status" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TextField fx:id="txtSearch" layoutX="6.0" layoutY="12.0" prefHeight="26.0" prefWidth="418.0" promptText="ID, Name, Status" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="109.60000000000002" AnchorPane.topAnchor="12.0" />
+            <Button fx:id="btnSearch" layoutX="427.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #12ae9a; -fx-cursor: hand;" text="Search" textFill="WHITE" AnchorPane.rightAnchor="8.599999999999994" AnchorPane.topAnchor="11.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="548.0" layoutY="4.0" prefHeight="582.0" prefWidth="284.0" stylesheets="@../../../../static/css/MenuStyleSheet.css" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="4.0">
+         <styleClass>
+            <String fx:value="radius" />
+            <String fx:value="shadow" />
+            <String fx:value="white-bg" />
+            <String fx:value="white-bg" />
+         </styleClass>
+         <children>
+            <Label layoutX="15.000000000000014" layoutY="73.00000000000004" text="Total: " AnchorPane.bottomAnchor="489.79999999999995" AnchorPane.rightAnchor="228.2">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtTotal" layoutX="129.6" layoutY="71.6" prefHeight="22.0" prefWidth="126.0" text="\$0.0" AnchorPane.bottomAnchor="488.0" AnchorPane.rightAnchor="28.0">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.999999999999986" layoutY="96.99999999999997" prefHeight="22.0" prefWidth="67.0" text="Discount:" AnchorPane.bottomAnchor="462.6" AnchorPane.rightAnchor="201.8">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDiscount" layoutX="129.6" layoutY="95.60000000000005" prefHeight="12.0" prefWidth="126.0" promptText="\$0.0" AnchorPane.bottomAnchor="460.79999999999995" AnchorPane.rightAnchor="28.0" />
+            <Label layoutX="14.600000000000023" layoutY="121.6" prefHeight="22.0" prefWidth="86.0" text="Have to Pay:" AnchorPane.bottomAnchor="438.0" AnchorPane.rightAnchor="182.99999999999997">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtHaveToPay" layoutX="129.6" layoutY="121.6" prefHeight="22.0" prefWidth="126.0" text="\$0.0" AnchorPane.bottomAnchor="438.0" AnchorPane.rightAnchor="28.0">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnPay" layoutX="20.0" layoutY="180.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="238.0" style="-fx-background-color: #bc0d96; -fx-cursor: hand;" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Pay" textFill="WHITE" AnchorPane.bottomAnchor="363.6" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="19.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="23.0" prefHeight="22.0" prefWidth="98.0" text="Price per day:">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="49.0" prefHeight="22.0" prefWidth="98.0" text="Total days:">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPricePerDay" layoutX="128.0" layoutY="21.0" prefHeight="12.0" prefWidth="126.0" promptText="\$0.0" />
+            <Label fx:id="txtTotalDay" layoutX="130.0" layoutY="49.0" prefHeight="22.0" prefWidth="126.0" text="days">
+               <font>
+                  <Font name="Arial Nova" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

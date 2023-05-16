@@ -1,0 +1,28 @@
+.gradient{
+    -fx-background-color: linear-gradient(to bottom right, #0f3689, #278113);
+}
+
+.white-form{
+    -fx-background-color: #fff;
+}
+.head-label{
+    -fx-background-color: #286155;
+    -fx-border-width: 0 0 0 5px;
+    -fx-padding: 0 0 0 5px;
+}
+.btn{
+    -fx-background-color: linear-gradient(to bottom right, #3a18b0, #5942bd);
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+
+}
+
+.textfield{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #0f6789, #286155);
+    -fx-border-width: .5px;
+}
+.textfield:focused{
+    -fx-border-width: 1px;
+}
