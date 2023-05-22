@@ -8,6 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -36,6 +39,8 @@ public class MainController implements Initializable {
 
     @FXML
     private Label txtAdminName;
+    @FXML
+    private Circle circleIMG;
 
     private Alert alert;
 
@@ -67,6 +72,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        circleIMG.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/images/user.png"))));
         displayUserName();
 
         displayDashBroad();

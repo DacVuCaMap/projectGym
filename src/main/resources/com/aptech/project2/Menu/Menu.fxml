@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <SplitPane fx:id="girdMenu" dividerPositions="0.24544792425345952" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aptech.project2.Controller.MainController">
   <items>
             <AnchorPane maxWidth="-Infinity" prefHeight="599" prefWidth="267" styleClass="herder" stylesheets="@../../../../static/css/MenuStyleSheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutY="-1.0" prefHeight="154.0" prefWidth="266.0" stylesheets="@../../../../static/css/MenuStyleSheet.css">
+                  <AnchorPane layoutY="-1.0" prefHeight="125.0" prefWidth="266.0" stylesheets="@../../../../static/css/MenuStyleSheet.css">
                      <children>
-                        <Label layoutX="59.0" layoutY="120.0" text="Welcome" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="txtAdminName" layoutX="138.0" layoutY="120.0" prefHeight="26.0" prefWidth="123.0" text="Admin" textFill="WHITE">
+                        <Label fx:id="txtAdminName" alignment="CENTER" layoutX="48.0" layoutY="68.0" prefHeight="26.0" prefWidth="170.0" text="Admin" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                  <FontAwesomeIconView fill="WHITE" glyphName="HEARTBEAT" layoutX="91.0" layoutY="106.0" size="6em" wrappingWidth="70.39999999999998" />
+                  <Circle fx:id="circleIMG" fill="DODGERBLUE" layoutX="133.0" layoutY="41.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="btnMenuDashBroad" layoutX="30.0" layoutY="203.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="DASHBROAD" />
-                  <Button fx:id="btnMenuCoach" layoutX="30.0" layoutY="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="COACHES" />
-                  <Button fx:id="btnMenuPayment" layoutX="30.0" layoutY="373.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="PAYMENT" />
-            <Button fx:id="btnLogout" layoutX="87.0" layoutY="547.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="79.0" style="-fx-cursor: hand;" styleClass="radius" text="Logout">
+                  <Button fx:id="btnMenuDashBroad" layoutX="34.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="DASHBROAD" />
+                  <Button fx:id="btnMenuCoach" layoutX="34.0" layoutY="254.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="COACHES" />
+                  <Button fx:id="btnMenuPayment" layoutX="34.0" layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="PAYMENT" />
+            <Button fx:id="btnLogout" layoutX="1.0" layoutY="547.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="266.0" style="-fx-cursor: hand;" styleClass="logout" text="Logout" textFill="#8a8a8a">
                <font>
-                  <Font name="Arial Nova Bold" size="12.0" />
+                  <Font name="Calibri Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnMenuMember" layoutX="30.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="MEMBERS" />
+            <Button fx:id="btnMenuMember" layoutX="34.0" layoutY="312.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="MEMBERS" />
+            <Button fx:id="btnMenuPayment1" layoutX="34.0" layoutY="426.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="ABOUT US" />
                </children>
             </AnchorPane>
         

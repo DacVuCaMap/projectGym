@@ -51,28 +51,29 @@ public class MemberDAO implements IGeneric<Member> {
 
     @Override
     public ObservableList<Member> getAll() {
-        ObservableList<Member> members = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM tblmember";
-        try {
-            PreparedStatement ptm = con.prepareStatement(sql);
-            ResultSet rs = ptm.executeQuery();
-            while (rs.next()){
-                String id = rs.getString("id");
-                String name = rs.getString("memberName");
-                String address = rs.getString("address");
-                String gender = rs.getString("gender" );
-                String phone = rs.getString("phone");
-                String schedule = rs.getString("schedule");
-                LocalDate startDate = rs.getDate("startDate").toLocalDate();
-                LocalDate endDate = rs.getDate("endDate").toLocalDate();
-                String status = rs.getString("status");
-                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-                members.add(0, member);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return members;
+//        ObservableList<Member> members = FXCollections.observableArrayList();
+//        String sql = "SELECT * FROM tblmember";
+//        try {
+//            PreparedStatement ptm = con.prepareStatement(sql);
+//            ResultSet rs = ptm.executeQuery();
+//            while (rs.next()){
+//                String id = rs.getString("id");
+//                String name = rs.getString("memberName");
+//                String address = rs.getString("address");
+//                String gender = rs.getString("gender" );
+//                String phone = rs.getString("phone");
+//                String schedule = rs.getString("schedule");
+//                LocalDate startDate = rs.getDate("startDate").toLocalDate();
+//                LocalDate endDate = rs.getDate("endDate").toLocalDate();
+//                String status = rs.getString("status");
+//                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
+//                members.add(0, member);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return members;
+        return null;
     }
 
     public void update(Member member) {
