@@ -147,7 +147,7 @@ public class MemberController implements Initializable {
                 StartDate.setValue(newSelection.getStartDate());
                 EndDate.setValue(newSelection.getEndDate());
                 conboxStatus.setValue(newSelection.getStatus());
-
+                coachBox.setValue(setCoachBox(newSelection.getCoach()));
             }
         });
     }
@@ -305,6 +305,12 @@ public class MemberController implements Initializable {
             list.add(coach.getId()+"   name :"+coach.getName());
         }
         return list;
+    }
+    public String setCoachBox(Coach coach){
+        if (coach==null){
+            return "";
+        }
+        return coach.getId()+"   name :"+coach.getName();
     }
 
 
