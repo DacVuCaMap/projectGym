@@ -249,7 +249,7 @@ public class MemberController implements Initializable {
         if(newSelection==null){
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning message");
-            alert.setContentText("Please choose 1 row on the product table to update!");
+            alert.setContentText("Please choose 1 row on the member table to update!");
             alert.showAndWait();
         }else {
             String id = txtId.getText();
@@ -264,7 +264,7 @@ public class MemberController implements Initializable {
             Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Message");
-            alert.setContentText("Do you want to update this product!");
+            alert.setContentText("Do you want to update this member!");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get()==ButtonType.OK){
                 memberIGeneric.update(member);

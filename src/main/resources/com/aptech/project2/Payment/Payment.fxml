@@ -19,7 +19,7 @@
             <String fx:value="white-bg" />
          </styleClass>
          <children>
-            <TableView layoutX="4.0" layoutY="46.0" prefHeight="526.0" prefWidth="522.0" AnchorPane.bottomAnchor="9.600000000000023" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.600000000000023" AnchorPane.topAnchor="46.0">
+            <TableView fx:id="tableMember" layoutX="4.0" layoutY="46.0" prefHeight="526.0" prefWidth="522.0" AnchorPane.bottomAnchor="9.600000000000023" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.600000000000023" AnchorPane.topAnchor="46.0">
               <columns>
                 <TableColumn fx:id="columId" prefWidth="88.00000381469727" text="Customer ID" />
                 <TableColumn fx:id="columName" prefWidth="110.39999389648438" text="Name" />

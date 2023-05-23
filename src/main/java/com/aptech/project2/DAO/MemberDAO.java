@@ -6,6 +6,7 @@ import com.aptech.project2.Model.Member;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.security.Key;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,9 @@ import java.time.LocalDate;
 
 public class MemberDAO implements IGeneric<Member> {
     private Connection con = ConnectDatabase.getInstance().getConnect();
-
+    public static MemberDAO getInstance(){
+        return new MemberDAO();
+    }
     public void insert(Member member) {
         System.out.println("get here");
         String sql = "INSERT into tblmember(memberName,address,gender,phone,schedule,startDate,endDate,status,id) values " +
@@ -108,4 +111,54 @@ public class MemberDAO implements IGeneric<Member> {
         }
         return true;
     }
+
+    public ObservableList<Member> getAllBySearch(String keyword) {
+        ObservableList<Member> members = FXCollections.observableArrayList();
+        String condition = "";
+        if(!keyword.isEmpty()){
+            condition = " AND id LIKE ? OR memberName LIKE ? OR status LIKE ?";
+        }
+        String sql = "SELECT * FROM tblmember WHERE 1=1" + condition;
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            if(!keyword.isEmpty()){
+                ptm.setString(1, "%"+keyword+"%");
+                ptm.setString(2, "%"+keyword+"%");
+                ptm.setString(3, "%"+keyword+"%");
+            }
+            ResultSet rs = ptm.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("id");
+                String name = rs.getString("memberName");
+                String address = rs.getString("address");
+                String gender = rs.getString("gender" );
+                String phone = rs.getString("phone");
+                String schedule = rs.getString("schedule");
+                LocalDate startDate = rs.getDate("startDate").toLocalDate();
+                LocalDate endDate = rs.getDate("endDate").toLocalDate();
+                String status = rs.getString("status");
+                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
+                members.add(0, member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectDatabase.getInstance().closeConnect(con);
+        return members;
+    }
+
+    public void updateStatus(Member member){
+        String sql = "UPDATE tblmember SET status = ? WHERE id = ?";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ptm.setString(1, "Paid");
+            ptm.setString(2, member.getId());
+            ptm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectDatabase.getInstance().closeConnect(con);
+    }
+
+
 }
