@@ -122,6 +122,7 @@ public class MemberController implements Initializable {
 
     public void showTableMember(){
             ObservableList<Member>members =memberIGeneric.getAll();
+            members.forEach(System.out::println);
             colunmId.setCellValueFactory(new PropertyValueFactory<Member, String>("id"));
             colunmName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
             colunmAdress.setCellValueFactory(new PropertyValueFactory<Member, String>("address"));
@@ -179,6 +180,7 @@ public class MemberController implements Initializable {
             String gender = comboxGender.getValue();
             String schedule = comboxSchedule.getValue();
             String status = conboxStatus.getValue();
+            Coach coach=null;
             if(!Validate.checkMemberId(id)){
                 f=false;
                 txtMessage.setText("Member ID is invalid.");
@@ -191,19 +193,21 @@ public class MemberController implements Initializable {
                 f = false;
                 txtMessage.setText("Number Phone is invalid.");
             }
-
+            if (coachBox.getValue()!=null){
+                String coachId = coachBox.getValue().substring(0,7);
+                coach = new CoachDAO().findById(coachId);
+            }
             if(f==true){
                 txtMessage.setText("");
                 LocalDate startDate = StartDate.getValue();
                 LocalDate endDate = EndDate.getValue();
-
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirm Message");
                 alert.setContentText("Are you sure.");
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get()==ButtonType.OK) {
-//                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-//                    memberIGeneric.insert(member);
+                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+                    memberIGeneric.insert(member);
                     //clear field
                     setClear();
                     //show table here
@@ -260,33 +264,40 @@ public class MemberController implements Initializable {
     }
 
     public void setBtnUpdate(){
-//        Member newSelection = tableMember.getSelectionModel().getSelectedItem();
-//        if(newSelection==null){
-//            alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Warning message");
-//            alert.setContentText("Please choose 1 row on the product table to update!");
-//            alert.showAndWait();
-//        }else {
-//            String id = txtId.getText();
-//            String name = txtName.getText();
-//            String address = txtAdress.getText();
-//            String phone = txtPhone.getText();
-//            String gender = comboxGender.getValue();
-//            String schedule = comboxSchedule.getValue();
-//            String status = conboxStatus.getValue();
-//            LocalDate startDate = StartDate.getValue();
-//            LocalDate endDate = EndDate.getValue();
-//            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-//            alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setTitle("Confirm Message");
-//            alert.setContentText("Do you want to update this product!");
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if(result.get()==ButtonType.OK){
-//                memberIGeneric.update(member);
-//                setClear();
-//                showTableMember();
-//            }
-//        }
+        System.out.println(coachBox.getValue());
+        Member newSelection = tableMember.getSelectionModel().getSelectedItem();
+        if(newSelection==null){
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning message");
+            alert.setContentText("Please choose 1 row on the product table to update!");
+            alert.showAndWait();
+        }else {
+            String id = txtId.getText();
+            String name = txtName.getText();
+            String address = txtAdress.getText();
+            String phone = txtPhone.getText();
+            String gender = comboxGender.getValue();
+            String schedule = comboxSchedule.getValue();
+            String status = conboxStatus.getValue();
+            LocalDate startDate = StartDate.getValue();
+            LocalDate endDate = EndDate.getValue();
+            Coach coach=null;
+            if (coachBox.getValue()!=null){
+                String coachId = coachBox.getValue().substring(0,7);
+                coach = new CoachDAO().findById(coachId);
+            }
+            System.out.println(coach + "  in controller");
+            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Message");
+            alert.setContentText("Do you want to update this product!");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get()==ButtonType.OK){
+                memberIGeneric.update(member);
+                setClear();
+                showTableMember();
+            }
+        }
     }
     public List<String> getCoachList(){
         List<String> list = new ArrayList<>();

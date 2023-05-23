@@ -1,6 +1,7 @@
 package com.aptech.project2.DAO;
 
 import com.aptech.project2.Generic.IGeneric;
+import com.aptech.project2.Model.Coach;
 import com.aptech.project2.Model.ConnectDatabase;
 import com.aptech.project2.Model.Member;
 import javafx.collections.FXCollections;
@@ -17,8 +18,8 @@ public class MemberDAO implements IGeneric<Member> {
 
     public void insert(Member member) {
         System.out.println("get here");
-        String sql = "INSERT into tblmember(memberName,address,gender,phone,schedule,startDate,endDate,status,id) values " +
-                "(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT into tblmember(memberName,address,gender,phone,schedule,startDate,endDate,status,coachId,id) values " +
+                "(?,?,?,?,?,?,?,?,?,?)";
         System.out.println("get here1");
         try {
             PreparedStatement ptm = con.prepareStatement(sql);
@@ -30,7 +31,12 @@ public class MemberDAO implements IGeneric<Member> {
             ptm.setDate(6, java.sql.Date.valueOf(member.getStartDate()));
             ptm.setDate(7, java.sql.Date.valueOf(member.getEndDate()));
             ptm.setString(8,member.getStatus());
-            ptm.setString(9,member.getId());
+            String coachId = null;
+            if (member.getCoach()!=null){
+                coachId=member.getCoach().getId();
+            }
+            ptm.setString(9,coachId);
+            ptm.setString(10,member.getId());
             ptm.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -51,34 +57,35 @@ public class MemberDAO implements IGeneric<Member> {
 
     @Override
     public ObservableList<Member> getAll() {
-//        ObservableList<Member> members = FXCollections.observableArrayList();
-//        String sql = "SELECT * FROM tblmember";
-//        try {
-//            PreparedStatement ptm = con.prepareStatement(sql);
-//            ResultSet rs = ptm.executeQuery();
-//            while (rs.next()){
-//                String id = rs.getString("id");
-//                String name = rs.getString("memberName");
-//                String address = rs.getString("address");
-//                String gender = rs.getString("gender" );
-//                String phone = rs.getString("phone");
-//                String schedule = rs.getString("schedule");
-//                LocalDate startDate = rs.getDate("startDate").toLocalDate();
-//                LocalDate endDate = rs.getDate("endDate").toLocalDate();
-//                String status = rs.getString("status");
-//                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-//                members.add(0, member);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return members;
-        return null;
+        ObservableList<Member> members = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM tblmember";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ResultSet rs = ptm.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("id");
+                String name = rs.getString("memberName");
+                String address = rs.getString("address");
+                String gender = rs.getString("gender" );
+                String phone = rs.getString("phone");
+                String schedule = rs.getString("schedule");
+                LocalDate startDate = rs.getDate("startDate").toLocalDate();
+                LocalDate endDate = rs.getDate("endDate").toLocalDate();
+                String status = rs.getString("status");
+                String coachId = rs.getString("coachId");
+                Coach coach = new CoachDAO().findById(coachId);
+                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+                members.add(0, member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return members;
     }
 
     public void update(Member member) {
         String sql = "UPDATE tblmember SET memberName = ?," +
-                " address = ?, gender = ?, phone = ?, schedule = ?, startDate = ?, endDate=?, status=? WHERE id = ?";
+                " address = ?, gender = ?, phone = ?, schedule = ?, startDate = ?, endDate=?, status=?,coachId=? WHERE id = ?";
         try {
             PreparedStatement ptm = con.prepareStatement(sql);
             ptm.setString(1, member.getName());
@@ -89,7 +96,13 @@ public class MemberDAO implements IGeneric<Member> {
             ptm.setDate(6, java.sql.Date.valueOf(member.getStartDate()));
             ptm.setDate(7, java.sql.Date.valueOf(member.getEndDate()));
             ptm.setString(8,member.getStatus());
-            ptm.setString(9,member.getId());
+            System.out.println(member.getCoach()+ " in DAO");
+            String coachId = null;
+            if (member.getCoach()!=null){
+                coachId=member.getCoach().getId();
+            }
+            ptm.setString(9,coachId);
+            ptm.setString(10,member.getId());
             ptm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +112,9 @@ public class MemberDAO implements IGeneric<Member> {
 
     public boolean findById(String id){
         ObservableList<Member> list = getAll();
+        if (list==null){
+            return true;
+        }
         if (list.size()==0){
             return true;
         }

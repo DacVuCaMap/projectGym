@@ -108,6 +108,7 @@ public class CoachDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(coach + " in coachDAO");
         return coach;
     }
 }
