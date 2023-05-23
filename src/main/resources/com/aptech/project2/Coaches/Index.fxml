@@ -65,10 +65,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnInsert" layoutX="74.0" layoutY="406.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" styleClass="btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Insert" />
-      <Button fx:id="btnDelete" layoutX="197.0" layoutY="470.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" styleClass="btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Delete" />
-      <Button fx:id="btnUpdate" layoutX="197.0" layoutY="406.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" styleClass="btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Update" />
-      <Button fx:id="btnClear" layoutX="74.0" layoutY="470.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" styleClass="btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Clear" />
+      <Button fx:id="btnInsert" layoutX="74.0" layoutY="406.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Insert" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnDelete" layoutX="197.0" layoutY="470.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnUpdate" layoutX="197.0" layoutY="406.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnClear" layoutX="74.0" layoutY="470.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Label fx:id="txtMessage" layoutX="17.0" layoutY="362.0" prefHeight="18.0" prefWidth="308.0" textFill="#f70202">
          <font>
             <Font name="System Bold" size="12.0" />

@@ -12,11 +12,26 @@ public class Member {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
+    private Coach coach;
 
     public Member() {
     }
 
-    public Member(String id, String name, String address, String gender, String phone, String schedule, LocalDate startDate, LocalDate endDate, String status) {
+//    public Member(String id, String name, String address, String gender, String phone, String schedule, LocalDate startDate, LocalDate endDate, String status, Coach coach) {
+//        this.id = id;
+//        this.name = name;
+//        this.address = address;
+//        this.gender = gender;
+//        this.phone = phone;
+//        this.schedule = schedule;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.status = status;
+//        this.coach = coach;
+//    }
+
+
+    public Member(String id, String name, String address, String gender, String phone, String schedule, LocalDate startDate, LocalDate endDate, String status, Coach coach) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -26,6 +41,15 @@ public class Member {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.coach = coach;
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
     }
 
     public String getId() {

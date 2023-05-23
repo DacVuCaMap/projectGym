@@ -1,16 +1,14 @@
 .herder{
-    -fx-background-color: linear-gradient(to bottom right, #258f8d, #26949a);
+    -fx-background-color:#1d1160;
     -fx-border-color: #fff;
-    -fx-border-width: 0 0 .8px 0;
 }
 .nav-form{
     -fx-background-color: linear-gradient(to bottom right, #27867d, #915728);
 }
 
 .nav-btn{
-    -fx-background-color: transparent;
+    -fx-background-color:#202020;
     -fx-border-width: .4px;
-    -fx-border-color: #fff;
     -fx-cursor: hand;
     -fx-text-fill: #fff;
     -fx-font-size: 14px;
@@ -20,13 +18,11 @@
     -fx-text-fill: #000;
 }
 .logout{
-    -fx-background-color: #bd9f21;
-    -fx-padding: 5px;
+    -fx-background-color: #202020;
     -fx-cursor: hand;
-    -fx-background-radius: 50px;
 }
 .logout:hover{
-    -fx-background-color: #de1263;
+    -fx-background-color: #fff;
 }
 .shadow{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5,0,0,0);
@@ -35,8 +31,9 @@
 .white-bg{
     -fx-background-color: #fff;
 }
+
 .radius{
-    -fx-background-radius: 8px;
+    -fx-background-color: white ;
 }
 .transparent{
     -fx-border-color: transparent;
@@ -44,12 +41,12 @@
 .table-view{
     -fx-background-color: transparent;
     -fx-padding: 0;
-    -fx-border-color: linear-gradient(to bottom right, #273885, #bd9f21);
+    -fx-border-color: black;
     -fx-border-radius: 5px;
     -fx-border-width: 1.5px;
 }
 .table-view .column-header-background{
-    -fx-background-color: linear-gradient(to bottom right, #0e8a7d, #148d9d);;
+    -fx-background-color:black;
     -fx-background-radius: 5px 5px 0 0;
     -fx-background-insets: 0 0 0 0;
 }
@@ -63,12 +60,16 @@
     -fx-text-fill: #fff;
 }
 
-.btn{
-    -fx-background-color: linear-gradient(to bottom right, #168585, #229aa9);
+.btnClick{
+    -fx-background-color:   #808080;
     -fx-cursor: hand;
-    -fx-text-fill: #fff;
-    -fx-font-size: 16px;
 }
-.btn:hover{
-    -fx-border-color: linear-gradient(to bottom right, #273885, #bd9f21);
+.btnClick:hover{
+    -fx-background-color: #bbbbbb;
+}
+.btnClick:pressed{
+    -fx-background-color: black;
+}
+.cardDetail{
+    -fx-background-color:#202020;
 }

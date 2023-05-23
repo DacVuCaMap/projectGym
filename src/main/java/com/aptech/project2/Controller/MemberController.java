@@ -1,8 +1,12 @@
 package com.aptech.project2.Controller;
+import com.aptech.project2.DAO.CoachDAO;
 import com.aptech.project2.DAO.MemberDAO;
 import com.aptech.project2.Generic.IGeneric;
+import com.aptech.project2.Model.Coach;
 import com.aptech.project2.Model.Member;
 import com.aptech.project2.Validation.Validate;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +14,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,6 +69,8 @@ public class MemberController implements Initializable {
 
     @FXML
     private TableColumn<Member, LocalDate> colunmendDate;
+    @FXML
+    private TableColumn<Member,String> colunmCoach;
 
     @FXML
     private TableColumn<Member, String> colunmphone;
@@ -74,6 +83,8 @@ public class MemberController implements Initializable {
 
     @FXML
     private ComboBox<String> conboxStatus;
+    @FXML
+    private ComboBox<String> coachBox;
 
     @FXML
     private TableView<Member> tableMember;
@@ -99,26 +110,29 @@ public class MemberController implements Initializable {
         ObservableList<String> genders = FXCollections.observableArrayList("Male", "Female", "Others");
         ObservableList<String> status = FXCollections.observableArrayList("Paid", "Unpaid");
         ObservableList<String> schedules = FXCollections.observableArrayList("8.00-11.00", "14.00-17.00", "18.00-21.00");
+        ObservableList<String> coaches = FXCollections.observableArrayList(getCoachList());
         comboxGender.setItems(genders);
         conboxStatus.setItems(status);
         comboxSchedule.setItems(schedules);
+        coachBox.setItems(coaches);
     }
 
 
 
 
     public void showTableMember(){
-        ObservableList<Member>members =memberIGeneric.getAll();
-        colunmId.setCellValueFactory(new PropertyValueFactory<Member, String>("id"));
-        colunmName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
-        colunmAdress.setCellValueFactory(new PropertyValueFactory<Member, String>("address"));
-        colunmGender.setCellValueFactory(new PropertyValueFactory<Member, String>("gender"));
-        colunmphone.setCellValueFactory(new PropertyValueFactory<Member, String>("phone"));
-        colunmendDate.setCellValueFactory(new PropertyValueFactory<Member, LocalDate>("endDate"));
-        colunmStartDate.setCellValueFactory(new PropertyValueFactory<Member, LocalDate>("startDate"));
-        colunmSchedule.setCellValueFactory(new PropertyValueFactory<Member, String>("schedule"));
-        colunmStatus.setCellValueFactory(new PropertyValueFactory<Member, String>("status"));
-        tableMember.setItems(members);
+            ObservableList<Member>members =memberIGeneric.getAll();
+            colunmId.setCellValueFactory(new PropertyValueFactory<Member, String>("id"));
+            colunmName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
+            colunmAdress.setCellValueFactory(new PropertyValueFactory<Member, String>("address"));
+            colunmGender.setCellValueFactory(new PropertyValueFactory<Member, String>("gender"));
+            colunmphone.setCellValueFactory(new PropertyValueFactory<Member, String>("phone"));
+            colunmendDate.setCellValueFactory(new PropertyValueFactory<Member, LocalDate>("endDate"));
+            colunmStartDate.setCellValueFactory(new PropertyValueFactory<Member, LocalDate>("startDate"));
+            colunmSchedule.setCellValueFactory(new PropertyValueFactory<Member, String>("schedule"));
+            colunmStatus.setCellValueFactory(new PropertyValueFactory<Member, String>("status"));
+            colunmCoach.setCellValueFactory(Member->new SimpleStringProperty(Member.getValue().getCoach()!=null?Member.getValue().getCoach().getName():""));
+            tableMember.setItems(members);
         tableMember.setOnMouseClicked(event->{
             Member newSelection = tableMember.getSelectionModel().getSelectedItem();
             if(newSelection!=null){
@@ -132,6 +146,7 @@ public class MemberController implements Initializable {
                 StartDate.setValue(newSelection.getStartDate());
                 EndDate.setValue(newSelection.getEndDate());
                 conboxStatus.setValue(newSelection.getStatus());
+
             }
         });
     }
@@ -187,8 +202,8 @@ public class MemberController implements Initializable {
                 alert.setContentText("Are you sure.");
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get()==ButtonType.OK) {
-                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-                    memberIGeneric.insert(member);
+//                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
+//                    memberIGeneric.insert(member);
                     //clear field
                     setClear();
                     //show table here
@@ -245,6 +260,7 @@ public class MemberController implements Initializable {
     }
 
     public void setBtnUpdate(){
+<<<<<<< HEAD
         Member newSelection = tableMember.getSelectionModel().getSelectedItem();
         if(newSelection==null){
             alert = new Alert(Alert.AlertType.WARNING);
@@ -271,7 +287,42 @@ public class MemberController implements Initializable {
                 setClear();
                 showTableMember();
             }
+=======
+//        Member newSelection = tableMember.getSelectionModel().getSelectedItem();
+//        if(newSelection==null){
+//            alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Warning message");
+//            alert.setContentText("Please choose 1 row on the product table to update!");
+//            alert.showAndWait();
+//        }else {
+//            String id = txtId.getText();
+//            String name = txtName.getText();
+//            String address = txtAdress.getText();
+//            String phone = txtPhone.getText();
+//            String gender = comboxGender.getValue();
+//            String schedule = comboxSchedule.getValue();
+//            String status = conboxStatus.getValue();
+//            LocalDate startDate = StartDate.getValue();
+//            LocalDate endDate = EndDate.getValue();
+//            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
+//            alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setTitle("Confirm Message");
+//            alert.setContentText("Do you want to update this product!");
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if(result.get()==ButtonType.OK){
+//                memberIGeneric.update(member);
+//                setClear();
+//                showTableMember();
+//            }
+//        }
+    }
+    public List<String> getCoachList(){
+        List<String> list = new ArrayList<>();
+        for (Coach coach : CoachDAO.getInstance().getList()){
+            list.add(coach.getId()+"   name :"+coach.getName());
+>>>>>>> 2abfc31b9936e1b8d0340ce32916a09f4145ec3a
         }
+        return list;
     }
 
 
