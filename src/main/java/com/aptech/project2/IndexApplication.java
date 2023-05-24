@@ -21,7 +21,6 @@ public class IndexApplication extends Application{
         stage.setTitle("Sale Shop Management Systems");
         stage.setScene(scene);
         stage.show();
-        System.out.println(BCrypt.hashpw("12345", BCrypt.gensalt()));
     }
 
     public static void main(String[] args) {
