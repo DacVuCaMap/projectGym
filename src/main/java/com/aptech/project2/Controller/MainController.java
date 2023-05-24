@@ -8,8 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -110,7 +108,7 @@ public class MainController implements Initializable {
     }
 
     public void displayPayment(){
-        Parent root = FxmlLoader.getInstance().getViewPane("/com/aptech/project2/Payment/Payment.fxml");
+        Parent root = FxmlLoader.getInstance().getViewPane("/com/aptech/project2/Payment/Index.fxml");
         Scene scene = new Scene(root);
         girdMenu.getItems().set(1, scene.getRoot());
     }

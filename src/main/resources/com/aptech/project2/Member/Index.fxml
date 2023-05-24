@@ -38,7 +38,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-            <Button fx:id="btnInSert1" layoutX="714.0" layoutY="320.0" mnemonicParsing="false" onAction="#setBtnInSert" prefHeight="34.0" prefWidth="90.0" style="-fx-cursor: hand;" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Pay" textFill="WHITE">
+            <Button fx:id="btnPay" layoutX="714.0" layoutY="320.0" mnemonicParsing="false" onAction="#setBtnPay" prefHeight="34.0" prefWidth="90.0" style="-fx-cursor: hand;" styleClass="btnClick" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="Pay" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -105,12 +105,11 @@
                     <font>
                         <Font name="Arial Bold" size="12.0" />
                     </font></Label>
-            <TextArea fx:id="txtAdress" layoutX="116.0" layoutY="95.0" prefHeight="26.0" prefWidth="158.0" />
+            <TextArea fx:id="txtAdress" layoutX="116.0" layoutY="95.0" prefHeight="46.0" prefWidth="158.0" />
             <ComboBox fx:id="comboxSchedule" layoutX="372.0" layoutY="96.0" prefWidth="150.0" promptText="Chose Schedule" />
             <ComboBox fx:id="comboxGender" layoutX="372.0" layoutY="61.0" prefWidth="150.0" promptText="Chose Gender" />
             <DatePicker fx:id="StartDate" editable="false" layoutX="623.0" layoutY="25.0" />
             <DatePicker fx:id="EndDate" editable="false" layoutX="623.0" layoutY="61.0" />
-            <ComboBox fx:id="conboxStatus" layoutX="623.0" layoutY="96.0" prefHeight="26.0" prefWidth="178.0" promptText="Chose Status" />
             <Label layoutX="553.0" layoutY="28.0" prefHeight="20.0" prefWidth="66.0" text="Start Date:">
                <font>
                   <Font size="14.0" />
@@ -121,13 +120,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="573.0" layoutY="99.0" prefHeight="20.0" prefWidth="48.0" text="Status:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="coachBox" layoutX="117.0" layoutY="145.0" prefHeight="25.0" prefWidth="158.0" promptText="Choose Coach" />
-            <Label layoutX="64.0" layoutY="147.0" prefHeight="20.0" prefWidth="55.0" text="Coach">
+            <ComboBox fx:id="coachBox" layoutX="624.0" layoutY="96.0" prefHeight="26.0" prefWidth="178.0" promptText="Choose Coach" />
+            <Label layoutX="576.0" layoutY="100.0" prefHeight="20.0" prefWidth="48.0" text="Coach:">
                <font>
                   <Font size="14.0" />
                </font>

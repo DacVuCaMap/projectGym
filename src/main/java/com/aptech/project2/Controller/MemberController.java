@@ -10,14 +10,22 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -82,8 +90,6 @@ public class MemberController implements Initializable {
     private ComboBox<String> comboxSchedule;
 
     @FXML
-    private ComboBox<String> conboxStatus;
-    @FXML
     private ComboBox<String> coachBox;
 
     @FXML
@@ -103,16 +109,16 @@ public class MemberController implements Initializable {
 
     @FXML
     private TextField txtPhone;
+    @FXML
+    private Button btnPay;
     private Alert alert;
 
     private IGeneric<Member> memberIGeneric= new MemberDAO();
     public void showComBox(){
         ObservableList<String> genders = FXCollections.observableArrayList("Male", "Female", "Others");
-        ObservableList<String> status = FXCollections.observableArrayList("Paid", "Unpaid");
         ObservableList<String> schedules = FXCollections.observableArrayList("8.00-11.00", "14.00-17.00", "18.00-21.00");
         ObservableList<String> coaches = FXCollections.observableArrayList(getCoachList());
         comboxGender.setItems(genders);
-        conboxStatus.setItems(status);
         comboxSchedule.setItems(schedules);
         coachBox.setItems(coaches);
     }
@@ -122,6 +128,7 @@ public class MemberController implements Initializable {
 
     public void showTableMember(){
             ObservableList<Member>members =memberIGeneric.getAll();
+            members.forEach(System.out::println);
             colunmId.setCellValueFactory(new PropertyValueFactory<Member, String>("id"));
             colunmName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
             colunmAdress.setCellValueFactory(new PropertyValueFactory<Member, String>("address"));
@@ -145,8 +152,7 @@ public class MemberController implements Initializable {
                 comboxSchedule.setValue(newSelection.getSchedule());
                 StartDate.setValue(newSelection.getStartDate());
                 EndDate.setValue(newSelection.getEndDate());
-                conboxStatus.setValue(newSelection.getStatus());
-
+                coachBox.setValue(setCoachBox(newSelection.getCoach()));
             }
         });
     }
@@ -162,7 +168,6 @@ public class MemberController implements Initializable {
     public void setBtnInSert(){
         if(txtId.getText().isBlank()==true
                 ||txtName.getText().isBlank()==true
-                ||conboxStatus.getValue()==null
                 ||comboxSchedule.getValue()==null
                 ||comboxGender.getValue()==null
                 ||txtAdress.getText().isBlank()==true
@@ -178,7 +183,8 @@ public class MemberController implements Initializable {
             String phone = txtPhone.getText();
             String gender = comboxGender.getValue();
             String schedule = comboxSchedule.getValue();
-            String status = conboxStatus.getValue();
+            String status = "Unpaid";
+            Coach coach=null;
             if(!Validate.checkMemberId(id)){
                 f=false;
                 txtMessage.setText("Member ID is invalid.");
@@ -191,19 +197,21 @@ public class MemberController implements Initializable {
                 f = false;
                 txtMessage.setText("Number Phone is invalid.");
             }
-
+            if (coachBox.getValue()!=null){
+                String coachId = coachBox.getValue().substring(0,7);
+                coach = new CoachDAO().findById(coachId);
+            }
             if(f==true){
                 txtMessage.setText("");
                 LocalDate startDate = StartDate.getValue();
                 LocalDate endDate = EndDate.getValue();
-
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirm Message");
                 alert.setContentText("Are you sure.");
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get()==ButtonType.OK) {
-//                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-//                    memberIGeneric.insert(member);
+                    Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+                    memberIGeneric.insert(member);
                     //clear field
                     setClear();
                     //show table here
@@ -225,7 +233,6 @@ public class MemberController implements Initializable {
         EndDate.setValue(null);
         comboxGender.setValue("Choose Gender");
         comboxSchedule.setValue("Choose Schedule");
-        conboxStatus.setValue("Choose Status");
     }
 
     public void setBtnDelete(){
@@ -240,7 +247,6 @@ public class MemberController implements Initializable {
             comboxSchedule.setValue(newSelection.getSchedule());
             StartDate.setValue(newSelection.getStartDate());
             EndDate.setValue(newSelection.getEndDate());
-            conboxStatus.setValue(newSelection.getStatus());
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Message");
             alert.setContentText("Are you sure.");
@@ -260,12 +266,16 @@ public class MemberController implements Initializable {
     }
 
     public void setBtnUpdate(){
-<<<<<<< HEAD
+        System.out.println(coachBox.getValue());
         Member newSelection = tableMember.getSelectionModel().getSelectedItem();
         if(newSelection==null){
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning message");
+
             alert.setContentText("Please choose 1 row on the member table to update!");
+
+            alert.setContentText("Please choose 1 row on the member table to update!");
+
             alert.showAndWait();
         }else {
             String id = txtId.getText();
@@ -274,56 +284,82 @@ public class MemberController implements Initializable {
             String phone = txtPhone.getText();
             String gender = comboxGender.getValue();
             String schedule = comboxSchedule.getValue();
-            String status = conboxStatus.getValue();
+            String status = newSelection.getStatus();
             LocalDate startDate = StartDate.getValue();
             LocalDate endDate = EndDate.getValue();
-            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Message");
             alert.setContentText("Do you want to update this member!");
+
+            Coach coach=null;
+            if (coachBox.getValue()!=null){
+                String coachId = coachBox.getValue().substring(0,7);
+                coach = new CoachDAO().findById(coachId);
+            }
+            System.out.println(coach + "  in controller");
+            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Message");
+            alert.setContentText("Do you want to update this product!");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get()==ButtonType.OK){
                 memberIGeneric.update(member);
                 setClear();
                 showTableMember();
             }
-=======
-//        Member newSelection = tableMember.getSelectionModel().getSelectedItem();
-//        if(newSelection==null){
-//            alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Warning message");
-//            alert.setContentText("Please choose 1 row on the product table to update!");
-//            alert.showAndWait();
-//        }else {
-//            String id = txtId.getText();
-//            String name = txtName.getText();
-//            String address = txtAdress.getText();
-//            String phone = txtPhone.getText();
-//            String gender = comboxGender.getValue();
-//            String schedule = comboxSchedule.getValue();
-//            String status = conboxStatus.getValue();
-//            LocalDate startDate = StartDate.getValue();
-//            LocalDate endDate = EndDate.getValue();
-//            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status);
-//            alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setTitle("Confirm Message");
-//            alert.setContentText("Do you want to update this product!");
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if(result.get()==ButtonType.OK){
-//                memberIGeneric.update(member);
-//                setClear();
-//                showTableMember();
-//            }
-//        }
+
+
+        }
+
     }
     public List<String> getCoachList(){
         List<String> list = new ArrayList<>();
         for (Coach coach : CoachDAO.getInstance().getList()){
             list.add(coach.getId()+"   name :"+coach.getName());
->>>>>>> 2abfc31b9936e1b8d0340ce32916a09f4145ec3a
+
         }
         return list;
     }
+    public String setCoachBox(Coach coach){
+        if (coach==null){
+            return "";
+        }
+        return coach.getId()+"   name :"+coach.getName();
+    }
 
+   public void setBtnPay(){
+        Member newSelection = tableMember.getSelectionModel().getSelectedItem();
+        if(newSelection==null){
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning message");
+            alert.setContentText("Please choose 1 row on the member table to pay");
+            alert.showAndWait();
+        }else if(newSelection.getStatus().equals("Paid")){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information message");
+            alert.setContentText("This customer has already paid.");
+            alert.showAndWait();
+        } else {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/aptech/project2/Payment/Payment.fxml"));
+            try {
+                AnchorPane pane = loader.load();
+                PaymentController paymentController = loader.getController();
+                long daysBetween = ChronoUnit.DAYS.between(newSelection.getStartDate(), newSelection.getEndDate());
+                paymentController.setData(newSelection.getId(), daysBetween);
+                Stage dialogStage = new Stage();
+                Scene scene = new Scene(pane);
+                Stage stage = (Stage) btnPay.getScene().getWindow();
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(stage);
+                dialogStage.setScene(scene);
+                dialogStage.setTitle("Payment");
+                dialogStage.showAndWait();
+                showTableMember();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
