@@ -216,7 +216,6 @@ public class MemberController implements Initializable {
                     setClear();
                     //show table here
                     showTableMember();
-                    //
                 }
             }
 

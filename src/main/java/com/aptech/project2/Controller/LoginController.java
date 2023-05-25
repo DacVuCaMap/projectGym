@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -44,7 +46,8 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txtUsername;
 
-
+    @FXML
+    private Button btnRegister;
 
     private Alert alert;
     @FXML
@@ -56,6 +59,24 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnRegister.setOnAction(e->{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/aptech/project2/Register/RegisterScene.fxml"));
+            try {
+                Scene scene = new Scene(loader.load());
+                Stage dialogStage = new Stage();
+                Stage stage = (Stage) btnRegister.getScene().getWindow();
+                dialogStage.initStyle(StageStyle.UNDECORATED);
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(stage);
+                dialogStage.setScene(scene);
+                dialogStage.setTitle("Register");
+                dialogStage.showAndWait();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
     }
 
 

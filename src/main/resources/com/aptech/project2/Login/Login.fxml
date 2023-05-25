@@ -31,7 +31,7 @@
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <Button fx:id="btnLogin" layoutX="121.0" layoutY="284.0" mnemonicParsing="false" onAction="#setBtnLogin" prefHeight="26.0" prefWidth="80.0" styleClass="btn" stylesheets="@../../../../static/css/LoginDesign.css" text="Login" textFill="WHITE">
+                  <Button fx:id="btnLogin" layoutX="67.0" layoutY="285.0" mnemonicParsing="false" onAction="#setBtnLogin" prefHeight="26.0" prefWidth="80.0" styleClass="btn" stylesheets="@../../../../static/css/LoginDesign.css" text="Login" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -40,6 +40,11 @@
                      <font>
                         <Font name="Arial Bold" size="12.0" />
                      </font></Label>
+                  <Button fx:id="btnRegister" layoutX="168.0" layoutY="285.0" mnemonicParsing="false" onAction="#setBtnLogin" prefHeight="26.0" prefWidth="80.0" styleClass="btn" stylesheets="@../../../../static/css/LoginDesign.css" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <Button fx:id="btnCancel" layoutX="530.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnCancel" prefHeight="35.0" prefWidth="60.0" styleClass="btn" stylesheets="@../../../../static/css/LoginDesign.css" text="X" textFill="WHITE">

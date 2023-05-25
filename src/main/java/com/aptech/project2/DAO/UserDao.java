@@ -34,6 +34,19 @@ public class UserDao {
         }
         return user;
     }
+    //get register
+    public void insertUser(User user){
+        String sql = "Insert into admin(username,password) values (?,?)";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ptm.setString(1,user.getUsername());
+            ptm.setString(2, user.getPassword());
+            ptm.executeUpdate();
+            ConnectDatabase.getInstance().closeConnect(con);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }
