@@ -179,5 +179,21 @@ public class MemberDAO implements IGeneric<Member> {
         ConnectDatabase.getInstance().closeConnect(con);
     }
 
+    public int countMember(){
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM tblmember";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ResultSet rs = ptm.executeQuery();
+            if(rs.next()){
+                count = rs.getInt("COUNT(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectDatabase.getInstance().closeConnect(con);
+        return count;
+    }
+
 
 }

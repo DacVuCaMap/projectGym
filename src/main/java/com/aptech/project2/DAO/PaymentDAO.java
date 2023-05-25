@@ -63,5 +63,39 @@ public class PaymentDAO {
         return payments;
     }
 
+    public int countPayment(){
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM tblpayment";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ResultSet rs = ptm.executeQuery();
+            if(rs.next()){
+                count = rs.getInt("COUNT(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectDatabase.getInstance().closeConnect(con);
+        return count;
+    }
+
+    public double getTotal(){
+        double total = 0;
+        String sql = "SELECT SUM(total) FROM tblpayment";
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ResultSet rs = ptm.executeQuery();
+            if(rs.next()){
+                total = rs.getDouble("SUM(total)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectDatabase.getInstance().closeConnect(con);
+        return total;
+    }
+
+
+
 
 }
