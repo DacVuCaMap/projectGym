@@ -32,14 +32,15 @@ public class DashBroadController implements Initializable {
 
     public void showChart(){
         chartMonthIncome.getData().clear();
-        String sql = "SELECT MONTH(create_at) AS month, SUM(total) AS total FROM tblpayment " +
-                "GROUP BY MONTH(create_at)";
+        String sql = "SELECT YEAR(create_at) AS year, MONTH(create_at) AS month, WEEK(create_at) AS week, SUM(total) AS revenue " +
+                "FROM tblpayment GROUP BY YEAR(create_at), MONTH(create_at), WEEK(create_at)";
         XYChart.Series chart = new XYChart.Series();
         try {
             PreparedStatement ptm = con.prepareStatement(sql);
             ResultSet rs = ptm.executeQuery();
             while (rs.next()){
-                chart.getData().add(new XYChart.Data<>(rs.getString(1), rs.getDouble(2)));
+                chart.getData().add(new XYChart.Data<>("Week "+rs.getString(3)+"- month "+rs.getString(2)+"-"+rs.getString(1),
+                        rs.getDouble(4)));
             }
             chartMonthIncome.getData().add(chart);
         } catch (SQLException e) {

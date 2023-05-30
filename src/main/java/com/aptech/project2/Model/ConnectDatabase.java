@@ -11,9 +11,9 @@ public class ConnectDatabase {
 
     public Connection getConnect(){
         Connection connection = null;
-        String databaseUser = "namvu";
-        String databasePass = "namnam123";
-        String url = "jdbc:mysql://localhost:3306/gymmanagement";
+        String databaseUser = "root";
+        String databasePass = "Minh310896@";
+        String url = "jdbc:mysql://localhost:3306/home";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url,databaseUser,databasePass);

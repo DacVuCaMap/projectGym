@@ -22,7 +22,7 @@ public class Validate {
     }
 
     public static boolean checkMemberId(String proId){
-        String regex = "MID\\d{5}$";
+        String regex = "MID-\\d{4}$";
         return proId.matches(regex);
     }
 

@@ -187,7 +187,7 @@ public class MemberController implements Initializable {
             Coach coach=null;
             if(!Validate.checkMemberId(id)){
                 f=false;
-                txtMessage.setText("Member ID is invalid.");
+                txtMessage.setText("Member ID is invalid.(MID-0000)");
             }
             if(!new MemberDAO().findById(id)){
                 f = false;
@@ -259,7 +259,7 @@ public class MemberController implements Initializable {
         else{
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning message");
-            alert.setContentText("Please choose 1 row on the product table to update!");
+            alert.setContentText("Please choose 1 row on the member table to update!");
             alert.showAndWait();
         }
     }

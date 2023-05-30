@@ -57,7 +57,7 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtId" layoutX="117.0" layoutY="24.0" prefHeight="26.0" prefWidth="158.0" />
+                <TextField fx:id="txtId" layoutX="117.0" layoutY="24.0" prefHeight="26.0" prefWidth="158.0" promptText="Ex: MID-0000" />
                 <Label layoutX="15.0" layoutY="64.0" prefHeight="20.0" prefWidth="98.0" text="Member Name:">
                     <font>
                         <Font size="14.0" />

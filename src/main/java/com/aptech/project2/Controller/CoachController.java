@@ -127,7 +127,7 @@ public class CoachController implements Initializable {
                 Coach coach = new Coach(id, name, gender, phone, address, status);
                 if(!Validate.checkCoachId(id)){
                     f=false;
-                    txtMessage.setText("Coach ID is invalid.");
+                    txtMessage.setText("Coach ID is invalid.(CID-000)");
                 }
                 if(CoachDAO.getInstance().findById(id)!=null){
                     f = false;

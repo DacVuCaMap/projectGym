@@ -45,7 +45,7 @@
       </VBox>
       <VBox layoutX="142.0" layoutY="28.0" prefHeight="266.0" prefWidth="191.0" spacing="8.0">
          <children>
-            <TextField fx:id="txtId" />
+            <TextField fx:id="txtId" promptText="Ex: CID-000" />
             <TextField fx:id="txtName" layoutX="10.0" layoutY="10.0" />
             <ComboBox fx:id="comboxGender" prefHeight="26.0" prefWidth="210.0" promptText="Chose Gender" />
             <TextField fx:id="txtPhone" layoutX="10.0" layoutY="44.0" />
