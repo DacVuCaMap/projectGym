@@ -236,32 +236,51 @@ public class MemberController implements Initializable {
 
     public void setBtnDelete(){
         Member newSelection = tableMember.getSelectionModel().getSelectedItem();
+        // validation button delete
+        boolean flag = true;
 
-        if (newSelection!=null){
-            txtId.setText(newSelection.getId());
-            txtName.setText(newSelection.getName());
-            txtAdress.setText(newSelection.getAddress());
-            txtPhone.setText(newSelection.getPhone());
-            comboxGender.setValue(newSelection.getGender());
-            comboxSchedule.setValue(newSelection.getSchedule());
-            StartDate.setValue(newSelection.getStartDate());
-            EndDate.setValue(newSelection.getEndDate());
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Message");
-            alert.setContentText("Are you sure.");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get()==ButtonType.OK){
-                memberIGeneric.delete(newSelection);
-                setClear();
-                showTableMember();
-            }
-        }
-        else{
+        if (newSelection==null){
+            flag=false;
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning message");
             alert.setContentText("Please choose 1 row on the member table to update!");
             alert.showAndWait();
         }
+        else {
+            if (LocalDate.now().isBefore(EndDate.getValue()) && flag){
+                flag=false;
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning message");
+                alert.setContentText("Service package has not expired yet!");
+                alert.showAndWait();
+            }if (new MemberDAO().getMemberById(txtId.getText()).getStatus().equals("Unpaid") && flag){
+                flag=false;
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning message");
+                alert.setContentText("Member is not pay yet!");
+                alert.showAndWait();
+            }
+            if (flag){
+                txtId.setText(newSelection.getId());
+                txtName.setText(newSelection.getName());
+                txtAdress.setText(newSelection.getAddress());
+                txtPhone.setText(newSelection.getPhone());
+                comboxGender.setValue(newSelection.getGender());
+                comboxSchedule.setValue(newSelection.getSchedule());
+                StartDate.setValue(newSelection.getStartDate());
+                EndDate.setValue(newSelection.getEndDate());
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm Message");
+                alert.setContentText("Are you sure.");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get()==ButtonType.OK){
+                    memberIGeneric.delete(newSelection);
+                    setClear();
+                    showTableMember();
+                }
+            }
+        }
+
     }
 
     public void setBtnUpdate(){

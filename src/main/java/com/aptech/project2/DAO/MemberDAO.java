@@ -194,6 +194,14 @@ public class MemberDAO implements IGeneric<Member> {
         ConnectDatabase.getInstance().closeConnect(con);
         return count;
     }
-
+    public Member getMemberById(String id){
+        ObservableList<Member> memberObservableList = getAll();
+        for (Member member : memberObservableList){
+            if (member.getId().equals(id)){
+                return member;
+            }
+        }
+        return null;
+    }
 
 }
