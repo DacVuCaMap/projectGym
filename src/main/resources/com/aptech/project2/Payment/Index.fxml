@@ -20,7 +20,7 @@
          <children>
             <TableView fx:id="tablePayment" layoutX="4.0" layoutY="46.0" prefHeight="526.0" prefWidth="522.0" AnchorPane.bottomAnchor="9.600000000000023" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.600000000000023" AnchorPane.topAnchor="46.0">
               <columns>
-                <TableColumn fx:id="columId" prefWidth="79.20001602172852" text="ID" />
+                <TableColumn fx:id="columId" prefWidth="79.20001602172852" text="Order number" />
                 <TableColumn fx:id="columMemberId" prefWidth="189.59996032714844" text="Member ID" />
                   <TableColumn fx:id="columSubTotal" prefWidth="110.39999389648438" text="Subtotal" />
                   <TableColumn fx:id="columDiscount" prefWidth="110.39999389648438" text="Discount" />
