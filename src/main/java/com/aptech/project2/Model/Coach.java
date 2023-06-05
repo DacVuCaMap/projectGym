@@ -9,17 +9,18 @@ public class Coach {
     private String phone;
     private String address;
     private String status;
-
+    private String rank;
     public Coach() {
     }
 
-    public Coach(String id, String name, String gender, String phone, String address, String status) {
+    public Coach(String id, String name, String gender, String phone, String address, String status, String rank) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
         this.address = address;
         this.status = status;
+        this.rank = rank;
     }
 
     public String getId() {
@@ -68,5 +69,13 @@ public class Coach {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 }

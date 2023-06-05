@@ -17,7 +17,7 @@ public class IndexApplication extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("/com/aptech/project2/Login/Login.fxml"));
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Sale Shop Management Systems");
+        stage.setTitle("Gym Management Systems");
         stage.setScene(scene);
         stage.show();
     }

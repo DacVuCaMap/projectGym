@@ -19,6 +19,11 @@ import java.util.ResourceBundle;
 
 public class CoachController implements Initializable {
     @FXML
+    private TableColumn<Coach, String> ColumRank;
+
+    @FXML
+    private ComboBox<String> comboxRank;
+    @FXML
     private TableColumn<Coach, String> ColumStatus;
 
     @FXML
@@ -77,8 +82,10 @@ public class CoachController implements Initializable {
     public void showComBoxes(){
         ObservableList<String> genders = FXCollections.observableArrayList("Male", "Female", "Others");
         ObservableList<String> status = FXCollections.observableArrayList("Active", "Inactive");
+        ObservableList<String> ranks = FXCollections.observableArrayList("Grade A", "Grade B" , "Grade C");
         comboxGender.setItems(genders);
         comboxStatus.setItems(status);
+        comboxRank.setItems(ranks);
     }
 
     public void showTableCoach(){
@@ -88,6 +95,7 @@ public class CoachController implements Initializable {
         columGender.setCellValueFactory(new PropertyValueFactory<Coach, String>("gender"));
         columPhone.setCellValueFactory(new PropertyValueFactory<Coach, String>("phone"));
         ColumStatus.setCellValueFactory(new PropertyValueFactory<Coach, String>("status"));
+        ColumRank.setCellValueFactory(new PropertyValueFactory<Coach, String>("rank"));
         tableCat.setItems(coaches);
         tableCat.setOnMouseClicked(event->{
             Coach newSelection = tableCat.getSelectionModel().getSelectedItem();
@@ -114,7 +122,8 @@ public class CoachController implements Initializable {
                     ||comboxStatus.getValue()==null
                     ||comboxGender.getValue()==null
                     ||txtAdress.getText().isBlank()==true
-                    ||txtPhone.getText().isBlank()==true){
+                    ||txtPhone.getText().isBlank()==true
+                    ||comboxRank.getValue()==null){
                 txtMessage.setText("Please enter full textFiled.");
             }else {
                 boolean f = true;
@@ -124,7 +133,8 @@ public class CoachController implements Initializable {
                 String address = txtAdress.getText();
                 String gender = comboxGender.getValue();
                 String status = comboxStatus.getValue();
-                Coach coach = new Coach(id, name, gender, phone, address, status);
+                String rank = comboxRank.getValue();
+                Coach coach = new Coach(id, name, gender, phone, address, status, rank);
                 if(!Validate.checkCoachId(id)){
                     f=false;
                     txtMessage.setText("Coach ID is invalid.(CID-000)");
@@ -132,6 +142,10 @@ public class CoachController implements Initializable {
                 if(CoachDAO.getInstance().findById(id)!=null){
                     f = false;
                     txtMessage.setText("Coach ID is already.");
+                }
+                if(CoachDAO.getInstance().findByPhone(phone)!=null){
+                    f=false;
+                    txtMessage.setText("Number Phone is already.");
                 }
                 if(!Validate.checkPhone(phone)){
                     f = false;
@@ -193,14 +207,14 @@ public class CoachController implements Initializable {
                 alert.setContentText("Please choose 1 row on the product table to update!");
                 alert.showAndWait();
             }else {
-
                 String id = txtId.getText();
                 String phone = txtPhone.getText();
                 String name = txtName.getText();
                 String address = txtAdress.getText();
                 String gender = comboxGender.getValue();
                 String status = comboxStatus.getValue();
-                Coach coach = new Coach(id, name, gender, phone, address, status);
+                String rank = comboxRank.getValue();
+                Coach coach = new Coach(id, name, gender, phone, address, status, rank);
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirm Message");
                 alert.setContentText("Do you want to update this coach!");
@@ -213,6 +227,7 @@ public class CoachController implements Initializable {
                         newSelection.setGender(coach.getGender());
                         newSelection.setAddress(coach.getAddress());
                         newSelection.setPhone(coach.getPhone());
+                        newSelection.setRank(coach.getRank());
                         tableCat.refresh();
             }
         }
@@ -229,6 +244,7 @@ public class CoachController implements Initializable {
         comboxGender.setValue(null);
         txtPhone.setText("");
         comboxStatus.setValue(null);
+        comboxRank.setValue(null);
     }
 
 }
