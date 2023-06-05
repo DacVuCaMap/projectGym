@@ -30,6 +30,7 @@ public class CoachDAO {
                 coach.setGender(rs.getString("coach_gender"));
                 coach.setPhone(rs.getString("coach_phone"));
                 coach.setStatus(rs.getString("coach_status"));
+                coach.setRank(rs.getString("coach_rank"));
                 coaches.add(0, coach);
             }
             ConnectDatabase.getInstance().closeConnect(con);
@@ -40,7 +41,7 @@ public class CoachDAO {
     }
 
     public void insertCoach(Coach coach){
-        String sql = "INSERT INTO coach VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO coach VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ptm = con.prepareStatement(sql);
             ptm.setString(1, coach.getId());
@@ -49,6 +50,7 @@ public class CoachDAO {
             ptm.setString(4, coach.getPhone());
             ptm.setString(5, coach.getAddress());
             ptm.setString(6, coach.getStatus());
+            ptm.setString(7, coach.getRank());
             ptm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +60,7 @@ public class CoachDAO {
 
     public void updateCat(String id, Coach coach){
         String sql = "UPDATE coach SET id = ?, coach_name = ?, coach_gender = ?, coach_phone = ?," +
-                " coach_address = ?, coach_status = ? WHERE id =? ";
+                " coach_address = ?, coach_status = ?, coach_rank=? WHERE id =? ";
         try {
             PreparedStatement ptm = con.prepareStatement(sql);
             ptm.setString(1, coach.getId());
@@ -67,7 +69,8 @@ public class CoachDAO {
             ptm.setString(4, coach.getPhone());
             ptm.setString(5, coach.getAddress());
             ptm.setString(6, coach.getStatus());
-            ptm.setString(7, id);
+            ptm.setString(7, coach.getRank());
+            ptm.setString(8, id);
             ptm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,6 +106,32 @@ public class CoachDAO {
                 coach.setGender(rs.getString("coach_gender"));
                 coach.setPhone(rs.getString("coach_phone"));
                 coach.setStatus(rs.getString("coach_status"));
+                coach.setRank(rs.getString("coach_rank"));
+            }
+            ConnectDatabase.getInstance().closeConnect(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(coach + " in coachDAO");
+        return coach;
+    }
+
+    public Coach findByPhone(String phone){
+        String sql = "SELECT * FROM coach WHERE coach_phone = ?";
+        Coach coach = null;
+        try {
+            PreparedStatement ptm = con.prepareStatement(sql);
+            ptm.setString(1, phone);
+            ResultSet rs = ptm.executeQuery();
+            if(rs.next()){
+                coach = new Coach();
+                coach.setId(rs.getString("id"));
+                coach.setName(rs.getString("coach_name"));
+                coach.setAddress(rs.getString("coach_address"));
+                coach.setGender(rs.getString("coach_gender"));
+                coach.setPhone(rs.getString("coach_phone"));
+                coach.setStatus(rs.getString("coach_status"));
+                coach.setRank(rs.getString("coach_rank"));
             }
             ConnectDatabase.getInstance().closeConnect(con);
         } catch (SQLException e) {
