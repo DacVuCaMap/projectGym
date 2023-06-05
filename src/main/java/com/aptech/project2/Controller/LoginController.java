@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -77,10 +79,15 @@ public class LoginController implements Initializable {
             }
 
         });
+        loginForm.setOnKeyPressed(e->{
+            checkAndLogin();
+        });
     }
 
-
-    public void setBtnLogin(ActionEvent event) throws IOException {
+    public void setBtnLogin(ActionEvent event)   {
+        checkAndLogin();
+    }
+    public void checkAndLogin(){
         if (txtUsername.getText().isBlank() == true
                 || txtPassword.getText().isBlank() == true) {
             txtMesLogin.setText("Please enter Username and Password.");
@@ -101,20 +108,25 @@ public class LoginController implements Initializable {
                     alert.setTitle("Information Message");
                     alert.setContentText("Successfully Login");
                     alert.showAndWait();
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/com/aptech/project2/Menu/Menu.fxml"));
-                    SplitPane pane = loader.load();
-                    Scene home = new Scene(pane);
-                    Stage stage = new Stage();
-                    stage.setScene(home);
-                    stage.setTitle("Gym Management Systems");
-                    stage.show();
+                    try {
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/com/aptech/project2/Menu/Menu.fxml"));
+                        SplitPane pane = loader.load();
+                        Scene home = new Scene(pane);
+                        Stage stage = new Stage();
+                        stage.setScene(home);
+                        stage.setTitle("Gym Management Systems");
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
             }
         }
     }
 
-    }
+}
 
 
 

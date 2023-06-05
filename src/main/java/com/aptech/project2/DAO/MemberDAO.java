@@ -201,5 +201,13 @@ public class MemberDAO implements IGeneric<Member> {
         }
         return null;
     }
-
+    public boolean checkPhoneNumber(String str){
+        ObservableList<Member> memberObservableList = getAll();
+        for (Member member : memberObservableList){
+            if (member.getPhone().equals(str)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

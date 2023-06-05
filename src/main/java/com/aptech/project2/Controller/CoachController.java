@@ -10,8 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -78,6 +84,20 @@ public class CoachController implements Initializable {
     private TextField txtPhone;
     private Alert alert;
     private ObservableList<Coach> coaches = CoachDAO.getInstance().getList();
+    @FXML
+    private Label coachNof;
+    @FXML
+    private Label nameNof;
+    @FXML
+    private Label genderNof;
+    @FXML
+    private Label phoneNof;
+    @FXML
+    private Label addressNof;
+    @FXML
+    private Label statusNof;
+    @FXML
+    private Label rankNof;
 
     public void showComBoxes(){
         ObservableList<String> genders = FXCollections.observableArrayList("Male", "Female", "Others");
@@ -116,17 +136,7 @@ public class CoachController implements Initializable {
         showTableCoach();
 
         btnInsert.setOnAction(event -> {
-            txtId.setDisable(false);
-            if(txtId.getText().isBlank()==true
-                    ||txtName.getText().isBlank()==true
-                    ||comboxStatus.getValue()==null
-                    ||comboxGender.getValue()==null
-                    ||txtAdress.getText().isBlank()==true
-                    ||txtPhone.getText().isBlank()==true
-                    ||comboxRank.getValue()==null){
-                txtMessage.setText("Please enter full textFiled.");
-            }else {
-                boolean f = true;
+                txtId.setDisable(false);
                 String id = txtId.getText();
                 String phone = txtPhone.getText();
                 String name = txtName.getText();
@@ -135,23 +145,7 @@ public class CoachController implements Initializable {
                 String status = comboxStatus.getValue();
                 String rank = comboxRank.getValue();
                 Coach coach = new Coach(id, name, gender, phone, address, status, rank);
-                if(!Validate.checkCoachId(id)){
-                    f=false;
-                    txtMessage.setText("Coach ID is invalid.(CID-000)");
-                }
-                if(CoachDAO.getInstance().findById(id)!=null){
-                    f = false;
-                    txtMessage.setText("Coach ID is already.");
-                }
-                if(CoachDAO.getInstance().findByPhone(phone)!=null){
-                    f=false;
-                    txtMessage.setText("Number Phone is already.");
-                }
-                if(!Validate.checkPhone(phone)){
-                    f = false;
-                    txtMessage.setText("Number Phone is invalid.");
-                }
-                if(f==true){
+                if(validationValue(false)){
                     txtMessage.setText("");
                     alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirm Message");
@@ -163,8 +157,6 @@ public class CoachController implements Initializable {
                     tableCat.setItems(coaches);
                     }
                 }
-
-            }
         });
 
         btnDelete.setOnAction(event -> {
@@ -215,10 +207,11 @@ public class CoachController implements Initializable {
                 String status = comboxStatus.getValue();
                 String rank = comboxRank.getValue();
                 Coach coach = new Coach(id, name, gender, phone, address, status, rank);
-                alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm Message");
-                alert.setContentText("Do you want to update this coach!");
-                Optional<ButtonType> result = alert.showAndWait();
+                if (validationValue(true)){
+                    alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirm Message");
+                    alert.setContentText("Do you want to update this coach!");
+                    Optional<ButtonType> result = alert.showAndWait();
                     if(result.get()==ButtonType.OK){
                         CoachDAO.getInstance().updateCat(newSelection.getId(), coach);
                         newSelection.setId(coach.getId());
@@ -229,6 +222,7 @@ public class CoachController implements Initializable {
                         newSelection.setPhone(coach.getPhone());
                         newSelection.setRank(coach.getRank());
                         tableCat.refresh();
+                }
             }
         }
         });
@@ -246,5 +240,58 @@ public class CoachController implements Initializable {
         comboxStatus.setValue(null);
         comboxRank.setValue(null);
     }
-
+    public boolean validationValue(boolean update){
+        coachNof.setText("");
+        nameNof.setText("");
+        genderNof.setText("");
+        phoneNof.setText("");
+        addressNof.setText("");
+        statusNof.setText("");
+        rankNof.setText("");
+        boolean f=true;
+        String id = txtId.getText();
+        String phone = txtPhone.getText();
+        String name = txtName.getText();
+        String address = txtAdress.getText();
+        String gender = comboxGender.getValue();
+        String status = comboxStatus.getValue();
+        String rank = comboxRank.getValue();
+        if(!Validate.checkCoachId(id) && !update){
+            f=false;
+            coachNof.setText("Coach ID is invalid.(CID-000)");
+        }
+        if(CoachDAO.getInstance().findById(id)!=null && !update){
+            f = false;
+            coachNof.setText("Coach ID is already.");
+        }
+        if(CoachDAO.getInstance().findByPhone(phone)!=null && !update){
+            f=false;
+            phoneNof.setText("Number Phone is already.");
+        }
+        if(!Validate.checkPhone(phone)){
+            f = false;
+            phoneNof.setText("Number Phone is invalid.");
+        }
+        if (name.length()<4){
+            f=false;
+            nameNof.setText("Invalid name");
+        }
+        if (address.length()<5){
+            f=false;
+            addressNof.setText("Invalid address");
+        }
+        if (gender==null){
+            f=false;
+            genderNof.setText("Please select gender");
+        }
+        if (status==null){
+            f=false;
+            statusNof.setText("Please select status");
+        }
+        if (rank==null){
+            f=false;
+            rankNof.setText("Please select rank");
+        }
+        return f;
+    }
 }

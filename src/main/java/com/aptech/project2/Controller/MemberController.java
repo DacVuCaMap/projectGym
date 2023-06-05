@@ -112,6 +112,24 @@ public class MemberController implements Initializable {
     @FXML
     private Button btnPay;
     private Alert alert;
+    @FXML
+    private Label idNof;
+    @FXML
+    private Label phoneNof;
+    @FXML
+    private Label startNof;
+    @FXML
+    private Label nameNof;
+    @FXML
+    private Label genderNof;
+    @FXML
+    private Label endNof;
+    @FXML
+    private Label addressNof;
+    @FXML
+    private Label scheNof;
+    @FXML
+    private Label coachNof;
 
     private IGeneric<Member> memberIGeneric= new MemberDAO();
     public void showComBox(){
@@ -122,9 +140,6 @@ public class MemberController implements Initializable {
         comboxSchedule.setItems(schedules);
         coachBox.setItems(coaches);
     }
-
-
-
 
     public void showTableMember(){
             ObservableList<Member>members =memberIGeneric.getAll();
@@ -143,6 +158,7 @@ public class MemberController implements Initializable {
         tableMember.setOnMouseClicked(event->{
             Member newSelection = tableMember.getSelectionModel().getSelectedItem();
             if(newSelection!=null){
+                btnInSert.setDisable(true);
                 txtId.setText(newSelection.getId());
                 txtId.setDisable(true);
                 txtName.setText(newSelection.getName());
@@ -166,17 +182,6 @@ public class MemberController implements Initializable {
     }
 
     public void setBtnInSert(){
-        if(txtId.getText().isBlank()==true
-                ||txtName.getText().isBlank()==true
-                ||comboxSchedule.getValue()==null
-                ||comboxGender.getValue()==null
-                ||txtAdress.getText().isBlank()==true
-                ||txtPhone.getText().isBlank()==true
-                ||StartDate.getValue()==null
-                ||EndDate.getValue()==null){
-            txtMessage.setText("Please enter full textFiled.");
-        }else {
-            boolean f = true;
             String id = txtId.getText();
             String name = txtName.getText();
             String address = txtAdress.getText();
@@ -185,23 +190,13 @@ public class MemberController implements Initializable {
             String schedule = comboxSchedule.getValue();
             String status = "Unpaid";
             Coach coach=null;
-            if(!Validate.checkMemberId(id)){
-                f=false;
-                txtMessage.setText("Member ID is invalid.(MID-0000)");
-            }
-            if(!new MemberDAO().findById(id)){
-                f = false;
-                txtMessage.setText("Member ID is already.");
-            }
-            if(!Validate.checkPhone(phone)){
-                f = false;
-                txtMessage.setText("Number Phone is invalid.");
-            }
+            boolean f=validationValue(false);
             if (coachBox.getValue()!=null){
                 String coachId = coachBox.getValue().substring(0,7);
                 coach = new CoachDAO().findById(coachId);
             }
             if(f==true){
+                System.out.println("get insert member");
                 txtMessage.setText("");
                 LocalDate startDate = StartDate.getValue();
                 LocalDate endDate = EndDate.getValue();
@@ -218,11 +213,10 @@ public class MemberController implements Initializable {
                     showTableMember();
                 }
             }
-
-        }
     }
 
     public void setClear(){
+        clearNof();
         txtId.setText("");
         txtId.setDisable(false);
         txtName.setText("");
@@ -232,6 +226,7 @@ public class MemberController implements Initializable {
         EndDate.setValue(null);
         comboxGender.setValue("Choose Gender");
         comboxSchedule.setValue("Choose Schedule");
+        btnInSert.setDisable(false);
     }
 
     public void setBtnDelete(){
@@ -284,7 +279,6 @@ public class MemberController implements Initializable {
     }
 
     public void setBtnUpdate(){
-        System.out.println(coachBox.getValue());
         Member newSelection = tableMember.getSelectionModel().getSelectedItem();
         if(newSelection==null){
             alert = new Alert(Alert.AlertType.WARNING);
@@ -296,36 +290,36 @@ public class MemberController implements Initializable {
 
             alert.showAndWait();
         }else {
-            String id = txtId.getText();
-            String name = txtName.getText();
-            String address = txtAdress.getText();
-            String phone = txtPhone.getText();
-            String gender = comboxGender.getValue();
-            String schedule = comboxSchedule.getValue();
-            String status = newSelection.getStatus();
-            LocalDate startDate = StartDate.getValue();
-            LocalDate endDate = EndDate.getValue();
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Message");
-            alert.setContentText("Do you want to update this member!");
-
-            Coach coach=null;
-            if (coachBox.getValue()!=null){
-                String coachId = coachBox.getValue().substring(0,7);
-                coach = new CoachDAO().findById(coachId);
+            if (validationValue(true)){
+                String id = txtId.getText();
+                String name = txtName.getText();
+                String address = txtAdress.getText();
+                String phone = txtPhone.getText();
+                String gender = comboxGender.getValue();
+                String schedule = comboxSchedule.getValue();
+                String status = newSelection.getStatus();
+                LocalDate startDate = StartDate.getValue();
+                LocalDate endDate = EndDate.getValue();
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm Message");
+                alert.setContentText("Do you want to update this member!");
+                Coach coach=null;
+                if (!coachBox.getValue().equals("")){
+                    String coachId = coachBox.getValue().substring(0,7);
+                    coach = new CoachDAO().findById(coachId);
+                }
+                System.out.println(coach + "  in controller");
+                Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm Message");
+                alert.setContentText("Do you want to update this member!");
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get()==ButtonType.OK){
+                    memberIGeneric.update(member);
+                    setClear();
+                    showTableMember();
+                }
             }
-            System.out.println(coach + "  in controller");
-            Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Message");
-            alert.setContentText("Do you want to update this member!");
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get()==ButtonType.OK){
-                memberIGeneric.update(member);
-                setClear();
-                showTableMember();
-            }
-
 
         }
 
@@ -397,5 +391,76 @@ public class MemberController implements Initializable {
             }
         }
     }
+    public boolean validationValue(boolean update){
+        clearNof();
+        boolean flag=true;
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAdress.getText();
+        String phone = txtPhone.getText();
+        String gender = comboxGender.getValue();
+        String schedule = comboxSchedule.getValue();
+        LocalDate startDate = StartDate.getValue();
+        LocalDate endDate = EndDate.getValue();
+        if(!Validate.checkMemberId(id) && !update){
+            flag=false;
+            idNof.setText("* Member ID is invalid.(MID-0000)");
+        }
+        if(!new MemberDAO().findById(id) && !update){
+            flag = false;
+            idNof.setText("* Member ID is already.");
+        }
+        if(!Validate.checkPhone(phone) && !update){
+            flag = false;
+            phoneNof.setText("* Number Phone is invalid.");
+        }
+        if(!new MemberDAO().checkPhoneNumber(phone) && !update){
+            flag=false;
+            phoneNof.setText("* Phone number is already");
+        }
+        //validation date
+        if (startDate==null){
+            flag=false;
+            startNof.setText("* Please select date");
+        }
+        if(endDate==null){
+            flag=false;
+            endNof.setText("* Please select date");
+        }
+        if (startDate!=null && endDate!=null){
+            if (startDate.isAfter(endDate)){
+                flag=false;
+                startNof.setText("* The end date must before start date");
+                endNof.setText("* The end date must before start date");
+            }
+        }
 
+        if (name.length()<4){
+            flag=false;
+            nameNof.setText("* Invalid name");
+        }
+        if(gender==null){
+            flag=false;
+            genderNof.setText("* Please select gender");
+        }
+        if (address.length()<5){
+            flag=false;
+            addressNof.setText("* Invalid address");
+        }
+        if(schedule==null){
+            flag=false;
+            scheNof.setText("* Please select schedule");
+        }
+        return flag;
+    }
+    public void clearNof(){
+        idNof.setText("");
+        phoneNof.setText("");
+        startNof.setText("");
+        endNof.setText("");
+        nameNof.setText("");
+        genderNof.setText("");
+        addressNof.setText("");
+        scheNof.setText("");
+    }
 }

@@ -58,12 +58,12 @@
                     </font>
                 </Label>
                 <TextField fx:id="txtId" layoutX="117.0" layoutY="24.0" prefHeight="26.0" prefWidth="158.0" promptText="Ex: MID-0000" />
-                <Label layoutX="15.0" layoutY="64.0" prefHeight="20.0" prefWidth="98.0" text="Member Name:">
+                <Label layoutX="15.0" layoutY="68.0" prefHeight="20.0" prefWidth="98.0" text="Member Name:">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtName" layoutX="117.0" layoutY="59.0" prefHeight="26.0" prefWidth="158.0" />
+                <TextField fx:id="txtName" layoutX="117.0" layoutY="63.0" prefHeight="26.0" prefWidth="158.0" />
                 <TextField fx:id="txtPhone" layoutX="372.0" layoutY="24.0" />
                 <Label layoutX="320.0" layoutY="28.0" prefHeight="20.0" prefWidth="48.0" text="Phone:">
                     <font>
@@ -86,17 +86,17 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-                <Label layoutX="59.0" layoutY="98.0" prefHeight="20.0" prefWidth="55.0" text="Address:" textAlignment="RIGHT">
+                <Label layoutX="59.0" layoutY="108.0" prefHeight="20.0" prefWidth="55.0" text="Address:" textAlignment="RIGHT">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="315.0" layoutY="64.0" prefHeight="20.0" prefWidth="55.0" text="Gender:">
+                <Label layoutX="315.0" layoutY="68.0" prefHeight="20.0" prefWidth="55.0" text="Gender:">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="305.0" layoutY="98.0" prefHeight="20.0" prefWidth="66.0" text="Schedule:">
+                <Label layoutX="305.0" layoutY="108.0" prefHeight="20.0" prefWidth="66.0" text="Schedule:">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -105,25 +105,70 @@
                     <font>
                         <Font name="Arial Bold" size="12.0" />
                     </font></Label>
-            <TextArea fx:id="txtAdress" layoutX="116.0" layoutY="95.0" prefHeight="46.0" prefWidth="158.0" />
-            <ComboBox fx:id="comboxSchedule" layoutX="372.0" layoutY="96.0" prefWidth="150.0" promptText="Chose Schedule" />
-            <ComboBox fx:id="comboxGender" layoutX="372.0" layoutY="61.0" prefWidth="150.0" promptText="Chose Gender" />
+            <TextArea fx:id="txtAdress" layoutX="116.0" layoutY="105.0" prefHeight="46.0" prefWidth="158.0" />
+            <ComboBox fx:id="comboxSchedule" layoutX="372.0" layoutY="106.0" prefWidth="150.0" promptText="Chose Schedule" />
+            <ComboBox fx:id="comboxGender" layoutX="372.0" layoutY="65.0" prefWidth="150.0" promptText="Chose Gender" />
             <DatePicker fx:id="StartDate" editable="false" layoutX="623.0" layoutY="25.0" />
-            <DatePicker fx:id="EndDate" editable="false" layoutX="623.0" layoutY="61.0" />
+            <DatePicker fx:id="EndDate" editable="false" layoutX="623.0" layoutY="65.0" />
             <Label layoutX="553.0" layoutY="28.0" prefHeight="20.0" prefWidth="66.0" text="Start Date:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="558.0" layoutY="61.0" prefHeight="20.0" prefWidth="66.0" text="End Date:">
+            <Label layoutX="558.0" layoutY="65.0" prefHeight="20.0" prefWidth="66.0" text="End Date:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="coachBox" layoutX="624.0" layoutY="96.0" prefHeight="26.0" prefWidth="178.0" promptText="Choose Coach" />
-            <Label layoutX="576.0" layoutY="100.0" prefHeight="20.0" prefWidth="48.0" text="Coach:">
+            <ComboBox fx:id="coachBox" layoutX="624.0" layoutY="106.0" prefHeight="26.0" prefWidth="178.0" promptText="Choose Coach" />
+            <Label layoutX="576.0" layoutY="110.0" prefHeight="20.0" prefWidth="48.0" text="Coach:">
                <font>
                   <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="idNof" layoutX="116.0" layoutY="12.0" prefHeight="15.0" prefWidth="150.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="phoneNof" layoutX="372.0" layoutY="12.0" prefHeight="15.0" prefWidth="142.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="startNof" layoutX="624.0" layoutY="12.0" prefHeight="15.0" prefWidth="176.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameNof" layoutX="116.0" layoutY="50.0" prefHeight="15.0" prefWidth="158.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="genderNof" layoutX="372.0" layoutY="50.0" prefHeight="15.0" prefWidth="150.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="endNof" layoutX="624.0" layoutY="51.0" prefHeight="15.0" prefWidth="176.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="addressNof" layoutX="116.0" layoutY="92.0" prefHeight="15.0" prefWidth="158.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="scheNof" layoutX="372.0" layoutY="93.0" prefHeight="15.0" prefWidth="150.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="coachNof" layoutX="625.0" layoutY="93.0" prefHeight="15.0" prefWidth="176.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="10.0" />
                </font>
             </Label>
             </children>
