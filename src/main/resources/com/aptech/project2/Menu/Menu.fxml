@@ -30,7 +30,6 @@
                </font>
             </Button>
             <Button fx:id="btnMenuMember" layoutX="34.0" layoutY="312.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="MEMBERS" />
-            <Button fx:id="btnMenuPayment1" layoutX="34.0" layoutY="426.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="ABOUT US" />
                </children>
             </AnchorPane>
         
