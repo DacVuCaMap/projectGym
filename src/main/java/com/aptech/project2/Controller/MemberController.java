@@ -318,7 +318,7 @@ public class MemberController implements Initializable {
             Member member = new Member(id,name,address,gender,phone,schedule,startDate,endDate,status,coach);
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Message");
-            alert.setContentText("Do you want to update this product!");
+            alert.setContentText("Do you want to update this member!");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get()==ButtonType.OK){
                 memberIGeneric.update(member);
@@ -355,7 +355,7 @@ public class MemberController implements Initializable {
         }else if(newSelection.getStatus().equals("Paid")){
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information message");
-            alert.setContentText("This customer has already paid.");
+            alert.setContentText("This member has already paid.");
             alert.showAndWait();
         } else {
         FXMLLoader loader = new FXMLLoader();
@@ -364,7 +364,25 @@ public class MemberController implements Initializable {
                 AnchorPane pane = loader.load();
                 PaymentController paymentController = loader.getController();
                 long daysBetween = ChronoUnit.DAYS.between(newSelection.getStartDate(), newSelection.getEndDate());
-                paymentController.setData(newSelection.getId(), daysBetween);
+                double PricePerDay = 2;
+                double Discount = 0;
+                String CoachID = newSelection.getCoach().getId();
+                Coach coach = CoachDAO.getInstance().findById(CoachID);
+                if(coach.getRank().equals("Grade A")){
+                    PricePerDay+=0.5;
+                }else if(coach.getRank().equals("Grade B")){
+                    PricePerDay+=0.3;
+                }else if(coach.getRank().equals("Grade C")){
+                    PricePerDay+=0.2;
+                }
+                if(daysBetween>=60 && daysBetween<90){
+                    Discount+=((PricePerDay*daysBetween)*5/100);
+                }else if(daysBetween>=90 && daysBetween<120){
+                    Discount+=((PricePerDay*daysBetween)*10/100);
+                }else if(daysBetween>=120){
+                    Discount+=((PricePerDay*daysBetween)*20/100);
+                }
+                paymentController.setData(newSelection.getId(), daysBetween, PricePerDay, Discount);
                 Stage dialogStage = new Stage();
                 Scene scene = new Scene(pane);
                 Stage stage = (Stage) btnPay.getScene().getWindow();
