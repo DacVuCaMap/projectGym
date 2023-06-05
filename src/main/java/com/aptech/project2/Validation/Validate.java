@@ -45,4 +45,8 @@ public class Validate {
         String regex = "^CID-\\d{3}$";
         return catId.matches(regex);
     }
+    public static boolean isEmail(String email){
+        String regex = "^(.+)@(.+).{8}$";
+        return email.matches(regex);
+    }
 }

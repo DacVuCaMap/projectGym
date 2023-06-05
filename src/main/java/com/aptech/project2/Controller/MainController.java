@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,6 +42,10 @@ public class MainController implements Initializable {
     @FXML
     private Circle circleIMG;
 
+    @FXML
+    private Label mailLabel;
+    public static String userMail;
+
     private Alert alert;
 
     @FXML
@@ -70,7 +76,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        circleIMG.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/images/user.png"))));
+        circleIMG.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/static/images/user.png"))));
+        mailLabel.setText(userMail);
         displayUserName();
 
         displayDashBroad();
@@ -112,7 +119,6 @@ public class MainController implements Initializable {
         Scene scene = new Scene(root);
         girdMenu.getItems().set(1, scene.getRoot());
     }
-
 
 
 }

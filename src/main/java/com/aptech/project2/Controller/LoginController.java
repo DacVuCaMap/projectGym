@@ -95,6 +95,7 @@ public class LoginController implements Initializable {
                     txtMesLogin.setText("Incorrect account or password.");
                 } else {
                     UserDao.userSession = user;
+                    MainController.userMail=txtUsername.getText();
                     btnLogin.getScene().getWindow().hide();
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");

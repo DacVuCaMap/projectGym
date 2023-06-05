@@ -19,6 +19,11 @@
                            </font>
                         </Label>
                   <Circle fx:id="circleIMG" fill="DODGERBLUE" layoutX="133.0" layoutY="41.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="mailLabel" alignment="CENTER" layoutX="48.0" layoutY="94.0" prefHeight="17.0" prefWidth="170.0" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Label>
                      </children>
                   </AnchorPane>
                   <Button fx:id="btnMenuDashBroad" layoutX="34.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../../../../static/css/MenuStyleSheet.css" text="DASHBROAD" />
